@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mordy Miśka - Odkryj</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --navbar-bg: rgba(248, 249, 250, 0.4);
+            --mobile-menu-bg: rgba(248, 249, 250, 0.95);
+            --text-main: #1a1a1a;
+            --text-muted: #5f6368;
+            --primary-btn-bg: #388e84;
+            --primary-btn-text: #ffffff;
+            --secondary-btn-bg: transparent;
+            --secondary-btn-text: #388e84;
+            --secondary-btn-border: rgba(56, 142, 132, 0.3);
+            --bg-gradient: radial-gradient(circle, rgba(142,228,255,0.4) 0%, rgba(206,177,255,0.3) 40%, rgba(248,249,250,0) 70%);
+            --logo-color: #1a1a1a;
+            --logo-accent: #388e84;
+            --card-bg: #ffffff;
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-hover-border: rgba(56, 142, 132, 0.5);
+            --footer-border: rgba(0, 0, 0, 0.1);
+            --sponsor-bg: #e9ecef;
+        }
+
+        body.dark-mode {
+            --bg-color: #0d1117;
+            --navbar-bg: rgba(13, 17, 23, 0.4);
+            --mobile-menu-bg: rgba(13, 17, 23, 0.98);
+            --text-main: #e6edf3;
+            --text-muted: #8b949e;
+            --primary-btn-bg: #3ac6bd;
+            --primary-btn-text: #0d1117;
+            --secondary-btn-bg: rgba(58, 198, 189, 0.1);
+            --secondary-btn-text: #3ac6bd;
+            --secondary-btn-border: rgba(58, 198, 189, 0.3);
+            --bg-gradient: radial-gradient(circle at 50% 20%, rgba(34, 52, 69, 0.6) 0%, rgba(13, 17, 23, 1) 70%);
+            --logo-color: #e6edf3;
+            --logo-accent: #3ac6bd;
+            --card-bg: #161b22;
+            --card-border: rgba(255, 255, 255, 0.05);
+            --card-hover-border: rgba(58, 198, 189, 0.4);
+            --footer-border: rgba(255, 255, 255, 0.1);
+            --sponsor-bg: #161b22;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html { scroll-behavior: smooth; height: 100%; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; width: 100%; }
+
+        .background-blur {
+            position: absolute; top: 0; left: 0; width: 100%; height: 1000px;
+            background: var(--bg-gradient);
+            filter: blur(100px); z-index: -1; pointer-events: none;
+            transition: background 0.3s;
+        }
+
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.25rem 5%;
+            width: 100%;
+            position: fixed; top: 0; left: 0; right: 0;
+            background-color: var(--navbar-bg);
+            z-index: 1000;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--footer-border);
+        }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; z-index: 1001; }
+        .logo-icon { width: 32px; height: 32px; transition: transform 0.3s ease; }
+        .logo:hover .logo-icon { transform: scale(1.1) rotate(5deg); }
+        .logo-text { font-size: 1.5rem; font-weight: 800; color: var(--logo-color); letter-spacing: -0.5px; }
+        .logo-text span { color: var(--logo-accent); }
+
+        .nav-menu { display: flex; gap: 2.25rem; align-items: center; }
+        .nav-menu a { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 1.05rem; transition: color 0.2s; }
+        .nav-menu a:hover { color: var(--logo-accent); }
+
+        .nav-actions { display: flex; gap: 1.5rem; align-items: center; z-index: 1001; }
+
+        .theme-switch-btn {
+            background: none; border: 2px solid var(--text-muted); color: var(--text-muted);
+            font-size: 1.1rem; cursor: pointer; padding: 6px 10px; border-radius: 8px; transition: all 0.2s;
+        }
+        .theme-switch-btn:hover { border-color: var(--text-main); color: var(--text-main); }
+        .theme-switch-btn .fa-sun { display: none; }
+        body.dark-mode .theme-switch-btn .fa-moon { display: none; }
+        body.dark-mode .theme-switch-btn .fa-sun { display: block; }
+
+        .desktop-icon { color: var(--text-main); text-decoration: none; transition: color 0.2s; }
+        .desktop-icon:hover { color: var(--logo-accent); }
+        .mobile-only { display: none; }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            z-index: 1001;
+            width: 30px;
+            text-align: center;
+        }
+
+        .main-content { flex-grow: 1; padding-top: 10rem; width: 100%; }
+
+        .disclaimer-banner {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+        body.dark-mode .disclaimer-banner { background-color: rgba(255, 193, 7, 0.05); border-left-color: #e5a900; }
+        .disclaimer-banner strong { display: flex; align-items: center; gap: 10px; margin-bottom: 0.5rem; font-size: 1.2rem; color: #d39e00; }
+        body.dark-mode .disclaimer-banner strong { color: #ffc107; }
+
+        .featured-project {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .featured-project:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-color: var(--card-hover-border);
+        }
+        .featured-image { max-width: 250px; height: auto; border-radius: 12px; flex-shrink: 0; }
+        .featured-content { flex: 1; }
+
+        .featured-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: flex-start;
+        }
+
+        .featured-content h3 img {
+            height: 2rem;
+            width: auto;
+            display: inline-block;
+        }
+
+        .featured-content p { color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; font-size: 1.1rem; }
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .btn-link:hover { opacity: 0.9; transform: scale(1.02); }
+
+        .sponsors { padding: 4rem 0 8rem; text-align: center; }
+        .sponsors h2 { font-size: 3rem; font-weight: 800; margin-bottom: 3rem; }
+        .sponsors-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1000px; margin: 0 auto; }
+        .sponsor-card { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; height: 160px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; color: var(--text-main); transition: border-color 0.3s; }
+        .sponsor-card:hover { border-color: var(--card-hover-border); }
+
+        .footer { border-top: 1px solid var(--footer-border); padding: 2rem 0; background-color: transparent; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+        .footer-bottom-brand { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.9rem; }
+        .footer-bottom-brand svg { width: 20px; height: 20px; }
+        .footer-bottom-brand span { color: var(--text-main); font-weight: 600; }
+        .social-icons { display: flex; gap: 1.2rem; }
+        .social-icons a { color: var(--text-muted); font-size: 1.1rem; transition: color 0.2s; }
+        .social-icons a:hover { color: var(--text-main); }
+
+        @media (max-width: 900px) {
+            .sponsors-grid { grid-template-columns: 1fr; }
+            .navbar { padding: 1rem 5%; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+
+            .hamburger { display: block; }
+            .desktop-icon { display: none; }
+            .mobile-only { display: block; margin-top: 1rem; }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background-color: var(--mobile-menu-bg);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 2rem 0;
+                gap: 2.5rem;
+                transform: translateX(-100%);
+                opacity: 0;
+                pointer-events: none;
+                transition: transform 0.4s cubic-bezier(0.77,0.2,0.05,1.0), opacity 0.3s ease;
+                z-index: 1000;
+            }
+            .nav-menu.active {
+                transform: translateX(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .nav-menu a { font-size: 1.5rem; }
+
+            .featured-project { padding: 2rem 1.5rem; flex-direction: column; text-align: center; gap: 2rem; }
+            .featured-image { max-width: 180px; }
+
+            .featured-content h3 {
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                gap: 10px;
+                line-height: 1.2;
+                text-align: center;
+            }
+            .featured-content h3 i {
+                font-size: 1.8rem;
+                display: flex;
+                align-items: center;
+            }
+            .featured-content h3 img {
+                height: 1.8rem !important;
+                width: auto;
+                display: block;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body class="dark-mode" id="top">
+
+    <div class="background-blur"></div>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="28" cy="30" r="10" fill="var(--logo-accent)"/>
+                <circle cx="72" cy="30" r="10" fill="var(--logo-accent)"/>
+                <circle cx="50" cy="52" r="30" fill="var(--logo-accent)"/>
+                <circle cx="40" cy="48" r="3.5" fill="white"/>
+                <circle cx="60" cy="48" r="3.5" fill="white"/>
+                <circle cx="40" cy="48" r="1.5" fill="black"/>
+                <circle cx="60" cy="48" r="1.5" fill="black"/>
+                <circle cx="50" cy="65" r="11" fill="white"/>
+                <path d="M50 62 C48 62 47 63 47 65 C47 67 49 68 50 68 C51 68 53 67 53 65 C53 63 52 62 50 62 Z" fill="black"/>
+            </svg>
+            <div class="logo-text">Mordy <span>Miśka</span></div>
+        </a>
+
+        <div class="nav-menu" id="nav-menu">
+            <a href="index.html">Strona główna</a>
+            <a href="#top">Odkryj</a>
+            <a href="#" class="mobile-only"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+
+        <div class="nav-actions">
+            <button class="theme-switch-btn" id="theme-switch" aria-label="Przełącz motyw">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+            <a href="#" class="desktop-icon"><i class="fab fa-github fa-lg"></i></a>
+            <button class="hamburger" id="hamburger" aria-label="Otwórz menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="main-content container">
+
+        <div class="disclaimer-banner">
+            <strong><i class="fas fa-exclamation-triangle"></i> Ważna informacja</strong>
+            Nie jesteśmy właścicielami ani twórcami wymienionych poniżej stron internetowych oraz aplikacji. Prezentujemy tu jedynie odnośniki do witryn, które są ogólnodostępne dla każdego w internecie. Nasz zespół nie popiera piractwa – zawsze zalecamy pobieranie oprogramowania i korzystanie z treści cyfrowych pochodzących wyłącznie z legalnych i zweryfikowanych źródeł.
+        </div>
+
+        <section class="featured-project">
+            <img src="images/morphe.png" alt="MorpheApp Logo" class="featured-image">
+            <div class="featured-content">
+                <h3><i class="fab fa-android" style="color: #3DDC84;"></i> MorpheApp</h3>
+                <p>Morphe to zaawansowane, otwartoźródłowe narzędzie służące do modyfikowania (patchowania) aplikacji na system Android. Pozwala ono na omijanie ograniczeń (np. blokowanie reklam), odblokowywanie funkcji premium takich jak odtwarzanie w tle, oraz głęboką personalizację wyglądu i zachowania popularnych aplikacji (m.in. YouTube, YouTube Music czy Reddit). Projekt rozwija się z pomocą społeczności i bazuje na wcześniejszych dokonaniach znanych z projektu ReVanced.</p>
+                <a href="https://github.com/MorpheApp" target="_blank" rel="noopener noreferrer" class="btn-link">
+                    <i class="fab fa-github"></i> Zobacz na GitHub
+                </a>
+            </div>
+        </section>
+
+        <section class="featured-project">
+            <img src="images/metrolist.png" alt="Metrolist Logo" class="featured-image">
+            <div class="featured-content">
+                <h3><i class="fab fa-youtube" style="color: #FF0000;"></i> Metrolist</h3>
+                <p>Metrolist to lekki i nowoczesny klient YouTube Music na system Android. Aplikacja pozwala na korzystanie z funkcji Premium całkowicie za darmo – oferuje odtwarzanie muzyki w tle, brak irytujących reklam oraz dostęp do pełnej biblioteki utworów i teledysków. To idealne rozwiązanie mobilne dla osób szukających minimalistycznego i wydajnego sposobu na słuchanie ulubionej muzyki bez zbędnych ograniczeń i dodatkowych kosztów.</p>
+                <a href="https://github.com/MetrolistGroup/Metrolist" target="_blank" rel="noopener noreferrer" class="btn-link">
+                    <i class="fab fa-github"></i> Zobacz na GitHub
+                </a>
+            </div>
+        </section>
+
+        <section class="featured-project">
+            <img src="images/filman.png" alt="Filman Logo" class="featured-image">
+            <div class="featured-content">
+                <h3><i class="fas fa-film" style="color: #E50914;"></i> Filman</h3>
+                <p>Filman to popularny polski serwis internetowy oferujący dostęp do ogromnej bazy filmów i seriali online. Znajdziesz tu zarówno najnowsze premiery kinowe, jak i starsze klasyki dostępne z polskim lektorem, dubbingiem lub napisami. Platforma działa jako wygodny agregator, gromadząc linki do zewnętrznych odtwarzaczy, co znacznie ułatwia wyszukiwanie i darmowe oglądanie ulubionych produkcji w jednym miejscu.</p>
+                <a href="https://filman.cc/online" target="_blank" rel="noopener noreferrer" class="btn-link">
+                    <i class="fas fa-external-link-alt"></i> Przejdź do Filman
+                </a>
+            </div>
+        </section>
+
+        <section class="featured-project">
+            <img src="images/mas.png" alt="Microsoft Activation Scripts Logo" class="featured-image">
+            <div class="featured-content">
+                <h3><i class="fab fa-windows" style="color: #0078D6;"></i> MAS (Activation Scripts)</h3>
+                <p>Microsoft Activation Scripts (MAS) to powszechnie używane, otwartoźródłowe narzędzie służące do aktywacji systemów operacyjnych Windows oraz pakietów biurowych Microsoft Office. Skrypt ten oferuje między innymi w pełni darmową aktywację Office 365, działa bezpośrednio z poziomu wiersza poleceń i obsługuje popularne metody aktywacji takie jak HWID, Ohook czy KMS38. Cieszy się ogromnym zaufaniem społeczności IT ze względu na całkowicie jawny i przejrzysty kod, wolny od złośliwego oprogramowania często spotykanego w podobnych programach.</p>
+                <a href="https://github.com/massgravel/Microsoft-Activation-Scripts" target="_blank" rel="noopener noreferrer" class="btn-link">
+                    <i class="fab fa-github"></i> Zobacz na GitHub
+                </a>
+            </div>
+        </section>
+
+        <section class="featured-project">
+            <img src="images/ublock.png" alt="uBlock Origin Logo" class="featured-image">
+            <div class="featured-content">
+                <h3><i class="fas fa-shield-alt" style="color: #8b0000;"></i> uBlock Origin</h3>
+                <p>uBlock Origin to wydajne, otwartoźródłowe rozszerzenie do przeglądarek internetowych, służące do blokowania uciążliwych reklam, skryptów śledzących oraz złośliwego oprogramowania. Wyróżnia się na tle konkurencji niezwykle niskim zużyciem pamięci i procesora, dzięki czemu nie spowalnia działania przeglądarki. Oferuje ogromne możliwości konfiguracji, pozwalając na jednoczesne korzystanie z wielu zaawansowanych list filtrów chroniących Twoją prywatność.</p>
+                <a href="https://github.com/gorhill/ublock" target="_blank" rel="noopener noreferrer" class="btn-link">
+                    <i class="fab fa-github"></i> Zobacz na GitHub
+                </a>
+            </div>
+        </section>
+
+        <section class="featured-project">
+            <img src="images/brave.png" alt="Brave Browser Logo" class="featured-image">
+            <div class="featured-content">
+                <h3><img src="images/brave1.png" alt="Brave Icon"> Brave Browser</h3>
+                <p>Brave to szybka, prywatna i bezpieczna przeglądarka internetowa oparta na silniku Chromium. Wyróżnia się wbudowanym, niezwykle skutecznym mechanizmem ochronnym (Brave Shields), który domyślnie i bez konieczności dodatkowej konfiguracji blokuje irytujące reklamy, skrypty śledzące oraz złośliwe oprogramowanie. Dzięki pozbyciu się zbędnych elementów ładuje strony nawet trzykrotnie szybciej, pozwalając jednocześnie na oszczędność transferu danych i baterii.</p>
+                <a href="https://brave.com/pl/" target="_blank" rel="noopener noreferrer" class="btn-link">
+                    <i class="fas fa-download"></i> Pobierz Brave
+                </a>
+            </div>
+        </section>
+
+        <section class="featured-project">
+            <img src="images/firefox.png" alt="Mozilla Firefox Logo" class="featured-image">
+            <div class="featured-content">
+                <h3><i class="fab fa-firefox-browser" style="color: #FF7139;"></i> Mozilla Firefox</h3>
+                <p>Firefox to niezwykle popularna, w pełni niezależna i otwartoźródłowa przeglądarka internetowa rozwijana przez fundację Mozilla. W przeciwieństwie do większości dzisiejszych przeglądarek, nie opiera się na silniku Chromium, co pomaga utrzymać otwartą i wolną sieć. Kładzie ogromny nacisk na prywatność użytkowników, oferując domyślną, wzmocnioną ochronę przed śledzeniem (Enhanced Tracking Protection).</p>
+                <a href="https://www.firefox.com/pl/" target="_blank" rel="noopener noreferrer" class="btn-link">
+                    <i class="fas fa-download"></i> Pobierz Firefox
+                </a>
+            </div>
+        </section>
+
+        <section class="featured-project">
+            <img src="images/qbit.png" alt="qBittorrent Logo" class="featured-image">
+            <div class="featured-content">
+                <h3><img src="images/qbit1.png" alt="qBittorrent Icon"> qBittorrent</h3>
+                <p>qBittorrent to darmowy, otwartoźródłowy klient sieci BitTorrent, będący doskonałą i lekką alternatywą dla popularnych programów takich jak uTorrent czy BitTorrent. Pozbawiony jest irytujących reklam i niechcianego oprogramowania dodatkowego. Oferuje zaawansowane funkcje, takie jak zintegrowana wyszukiwarka torrentów oraz pełne wsparcie dla szyfrowania połączeń.</p>
+                <a href="https://github.com/qbittorrent/qBittorrent" target="_blank" rel="noopener noreferrer" class="btn-link">
+                    <i class="fab fa-github"></i> Zobacz na GitHub
+                </a>
+            </div>
+        </section>
+
+        <section class="featured-project">
+            <img src="images/spicetify.png" alt="Spicetify Logo" class="featured-image">
+            <div class="featured-content">
+                <h3><i class="fab fa-spotify" style="color: #1DB954;"></i> Spicetify</h3>
+                <p>Spicetify to wieloplatformowe narzędzie działające z poziomu wiersza poleceń, które pozwala na głęboką personalizację oficjalnego klienta Spotify. Dzięki niemu możesz całkowicie odmienić wygląd aplikacji za pomocą niestandardowych motywów, a także rozszerzyć jej funkcjonalność używając potężnych wtyczek i dodatków (np. blokowanie reklam).</p>
+                <a href="https://spicetify.app/" target="_blank" rel="noopener noreferrer" class="btn-link">
+                    <i class="fas fa-external-link-alt"></i> Przejdź do Spicetify
+                </a>
+            </div>
+        </section>
+
+        <section class="featured-project">
+            <img src="images/1337.png" alt="1337x Logo" class="featured-image">
+            <div class="featured-content">
+                <h3><i class="fas fa-search" style="color: #e60000;"></i> 1337x</h3>
+                <p>1337x to jeden z najpopularniejszych katalogów i wyszukiwarek plików torrent w internecie. Oferuje ogromną bazę linków magnet i plików torrent z najróżniejszych kategorii. Serwis wyróżnia się aktywną społecznością, przejrzystym interfejsem oraz systemem weryfikacji przesyłających (uploaderów), co znacząco pomaga unikać złośliwego oprogramowania.</p>
+                <a href="https://1337x.to/" target="_blank" rel="noopener noreferrer" class="btn-link">
+                    <i class="fas fa-external-link-alt"></i> Przejdź do 1337x
+                </a>
+            </div>
+        </section>
+
+        <section class="featured-project">
+            <img src="images/strumyk.png" alt="Strumyk Logo" class="featured-image">
+            <div class="featured-content">
+                <h3><i class="fas fa-futbol" style="color: #27ae60;"></i> Strumyk</h3>
+                <p>Strumyk to bardzo popularny polski serwis oferujący darmowy dostęp do transmisji sportowych na żywo. Znajdziesz tam streamy z najważniejszych wydarzeń ze świata piłki nożnej, gal sportów walki, Formuły 1 i wielu innych dyscyplin. Jest to główne miejsce w polskim internecie dla kibiców chcących śledzić sportowe zmagania w czasie rzeczywistym.</p>
+                <a href="https://strumyk.net/" target="_blank" rel="noopener noreferrer" class="btn-link">
+                    <i class="fas fa-external-link-alt"></i> Przejdź do Strumyk
+                </a>
+            </div>
+        </section>
+
+        <section class="featured-project">
+            <img src="images/elamigos.png" alt="ElAmigos Logo" class="featured-image">
+            <div class="featured-content">
+                <h3><i class="fas fa-gamepad" style="color: #f39c12;"></i> ElAmigos</h3>
+                <p>ElAmigos to jedna z najbardziej znanych i cenionych grup w świecie tzw. "repacków" gier komputerowych. Ich wstawki charakteryzują się wyjątkowo prostym procesem instalacji oraz wbudowanymi, najnowszymi aktualizacjami i wszystkimi dodatkami (DLC). Serwis oferuje potężną bibliotekę tytułów zoptymalizowanych pod kątem rozmiaru pobieranych plików.</p>
+                <a href="https://www.elamigosgamez.net/" target="_blank" rel="noopener noreferrer" class="btn-link">
+                    <i class="fas fa-external-link-alt"></i> Przejdź do ElAmigos
+                </a>
+            </div>
+        </section>
+
+        <section class="featured-project">
+            <img src="images/fitgirl.png" alt="FitGirl Repacks Logo" class="featured-image">
+            <div class="featured-content">
+                <h3><i class="fas fa-gamepad" style="color: #e74c3c;"></i> FitGirl Repacks</h3>
+                <p>FitGirl to absolutna legenda w świecie "repacków" gier komputerowych. Strona słynie z niesamowicie mocnej kompresji, która pozwala drastycznie zmniejszyć rozmiar pobieranych plików, co jest idealnym rozwiązaniem dla osób z wolniejszym łączem internetowym. Wstawki FitGirl są powszechnie uznawane za niezwykle bezpieczne, stabilne i wolne od wirusów.</p>
+                <a href="https://fitgirl-repacks.site/popular-repacks/" target="_blank" rel="noopener noreferrer" class="btn-link">
+                    <i class="fas fa-external-link-alt"></i> Przejdź do FitGirl
+                </a>
+            </div>
+        </section>
+
+        <section class="featured-project">
+            <img src="images/sponsorb.png" alt="SponsorBlock Logo" class="featured-image">
+            <div class="featured-content">
+                <h3><i class="fas fa-forward" style="color: #00d400;"></i> SponsorBlock</h3>
+                <p>SponsorBlock to innowacyjne, otwartoźródłowe rozszerzenie przeglądarkowe, które pozwala automatycznie pomijać irytujące segmenty sponsorowane w filmach na platformie YouTube. Dzięki bazie danych tworzonej przez tysiące użytkowników, narzędzie potrafi wykryć i pominąć nie tylko reklamy twórców, ale również wstępy i przypomnienia o subskrypcji.</p>
+                <a href="https://github.com/ajayyy/SponsorBlock" target="_blank" rel="noopener noreferrer" class="btn-link">
+                    <i class="fab fa-github"></i> Zobacz na GitHub
+                </a>
+            </div>
+        </section>
+
+        <section class="featured-project">
+            <img src="images/cookie.png" alt="I Still Don't Care About Cookies Logo" class="featured-image">
+            <div class="featured-content">
+                <h3><i class="fas fa-cookie-bite" style="color: #d2691e;"></i> I Still Don't Care About Cookies</h3>
+                <p>I Still Don't Care About Cookies to otwartoźródłowe rozszerzenie przeglądarkowe, które raz na zawsze rozwiązuje problem uciążliwych komunikatów o plikach cookies. Narzędzie automatycznie ukrywa okienka wyboru i akceptuje lub odrzuca zgody, pozwalając na natychmiastowy dostęp do treści strony bez zbędnych kliknięć.</p>
+                <a href="https://github.com/OhMyGuus/I-Still-Dont-Care-About-Cookies" target="_blank" rel="noopener noreferrer" class="btn-link">
+                    <i class="fab fa-github"></i> Zobacz na GitHub
+                </a>
+            </div>
+        </section>
+
+        <section class="sponsors">
+            <h2>Nasi Partnerzy</h2>
+            <div class="sponsors-grid">
+                <div class="sponsor-card">
+                    <i class="fab fa-github" style="margin-right: 15px; font-size: 1.8rem;"></i> GitHub
+                </div>
+                <div class="sponsor-card">
+                    <i class="fab fa-cloudflare" style="margin-right: 15px; color: #f38020; font-size: 1.8rem;"></i> Cloudflare
+                </div>
+                <div class="sponsor-card">
+                    <img src="images/cachy.png" alt="CachyOS" style="margin-right: 15px; height: 1.8rem; width: auto;"> CachyOS
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-bottom">
+                <div class="footer-bottom-brand">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px;">
+                        <circle cx="28" cy="30" r="10" fill="var(--logo-accent)"/>
+                        <circle cx="72" cy="30" r="10" fill="var(--logo-accent)"/>
+                        <circle cx="50" cy="52" r="30" fill="var(--logo-accent)"/>
+                    </svg>
+                    Made by <span>Mordy Miśka</span>
+                </div>
+                <div class="social-icons">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        const themeSwitchBtn = document.getElementById('theme-switch');
+        const body = document.body;
+
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            body.classList.remove('dark-mode');
+            if (currentTheme === 'dark') {
+                body.classList.add('dark-mode');
+            }
+        }
+
+        themeSwitchBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            let theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+        });
+
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        const hamburgerIcon = hamburger.querySelector('i');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            if (navMenu.classList.contains('active')) {
+                hamburgerIcon.classList.replace('fa-bars', 'fa-times');
+                body.style.overflow = 'hidden';
+            } else {
+                hamburgerIcon.classList.replace('fa-times', 'fa-bars');
+                body.style.overflow = 'auto';
+            }
+        });
+
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburgerIcon.classList.replace('fa-times', 'fa-bars');
+                body.style.overflow = 'auto';
+            });
+        });
+    </script>
+</body>
+</html>
