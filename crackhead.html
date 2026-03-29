@@ -104,10 +104,21 @@
         .nav-actions { display: flex; gap: 1.5rem; align-items: center; z-index: 1001; }
 
         .theme-switch-btn {
-            background: none; border: 2px solid var(--text-muted); color: var(--text-muted);
-            font-size: 1.1rem; cursor: pointer; padding: 6px 10px; border-radius: 8px; transition: all 0.2s;
+            background: none;
+            border: 2px solid var(--text-main);
+            color: var(--text-main);
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 42px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            border-radius: 8px;
+            transition: all 0.2s;
         }
-        .theme-switch-btn:hover { border-color: var(--text-main); color: var(--text-main); }
+        .theme-switch-btn:hover { border-color: var(--logo-accent); color: var(--logo-accent); }
         .theme-switch-btn .fa-sun { display: none; }
         body.dark-mode .theme-switch-btn .fa-moon { display: none; }
         body.dark-mode .theme-switch-btn .fa-sun { display: block; }
@@ -294,7 +305,7 @@
         <div class="nav-menu" id="nav-menu">
             <a href="index.html">Strona główna</a>
             <a href="#top">Odkryj</a>
-            <a href="#" class="mobile-only"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://github.com/grzywkaplrks/Mordy-Miska" target="_blank" class="mobile-only"><i class="fab fa-github"></i> GitHub</a>
         </div>
 
         <div class="nav-actions">
@@ -302,7 +313,7 @@
                 <i class="fas fa-moon"></i>
                 <i class="fas fa-sun"></i>
             </button>
-            <a href="#" class="desktop-icon"><i class="fab fa-github fa-lg"></i></a>
+            <a href="https://github.com/grzywkaplrks/Mordy-Miska" target="_blank" class="desktop-icon"><i class="fab fa-github fa-lg"></i></a>
             <button class="hamburger" id="hamburger" aria-label="Otwórz menu">
                 <i class="fas fa-bars"></i>
             </button>
@@ -504,10 +515,10 @@
                         <circle cx="72" cy="30" r="10" fill="var(--logo-accent)"/>
                         <circle cx="50" cy="52" r="30" fill="var(--logo-accent)"/>
                     </svg>
-                    Made by <span>Mordy Miśka</span>
+                    Made by Grzywa <span>Mordy Miśka</span>
                 </div>
                 <div class="social-icons">
-                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://github.com/grzywkaplrks/Mordy-Miska" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 </div>
             </div>
         </footer>
