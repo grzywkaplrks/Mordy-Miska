@@ -2,16 +2,15 @@
 <p align="center"><strong>Katalog Cyfrowej Niezależności | Open-Source | Privacy-First</strong></p>
 
 <p align="center">
-  <a href="https://mordymiska.pages.dev/"><img src="https://img.shields.io/badge/Platforma-LIVE-orange?style=for-the-badge&logo=google-chrome&logoColor=white" /></a>
-  <a href="https://github.com/grzywkaplrks/Mordy-Miska"><img src="https://img.shields.io/badge/GitHub-Repozytorium-181717?style=for-the-badge&logo=github&logoColor=white" /></a>
+  <a href="https://mordymiska.pages.dev/"><img src="https://img.shields.io/badge/Strona_WWW-LIVE-orange?style=for-the-badge&logo=google-chrome&logoColor=white" /></a>
 </p>
 
 ---
 
 ### 🏴‍☠️ O projekcie
-**Mordy Miśka** to starannie wyselekcjonowany hub narzędzi, które pozwalają odzyskać kontrolę nad własną prywatnością i danymi. Projekt agreguje najlepsze otwartoźródłowe aplikacje, serwisy edukacyjne oraz narzędzia, które omijają korporacyjne ograniczenia. 
+**Mordy Miśka** to nowoczesna, responsywna strona internetowa będąca starannie wyselekcjonowanym katalogiem otwartoźródłowych narzędzi, aplikacji oraz serwisów edukacyjnych i rozrywkowych. Projekt powstał z myślą o użytkownikach ceniących prywatność, wydajność i nadrzędną zasadę, że **"0 zł to uczciwa cena"**.
 
-Fundamentem platformy jest zasada, że dostęp do wiedzy i narzędzi nie powinien być ograniczony barierą finansową — **"0 zł to uczciwa cena"**.
+To hub dla osób szukających alternatyw, które omijają korporacyjne ograniczenia i szanują wolność cyfrową użytkownika.
 
 ---
 
@@ -40,17 +39,17 @@ Platforma jest stale optymalizowana przy wsparciu zaawansowanych modeli językow
 ### 📸 Podgląd Hubu
 
 <p align="center">
-  <img width="90%" alt="Mordy Miśka Preview 1" src="https://github.com/user-attachments/assets/703e2b08-743a-4baa-80f3-458113225f6b" />
+  <img width="90%" alt="Podgląd Mordy Miśka 1" src="https://github.com/user-attachments/assets/703e2b08-743a-4baa-80f3-458113225f6b" />
 </p>
 
 <p align="center">
-  <img width="90%" alt="Mordy Miśka Preview 2" src="https://github.com/user-attachments/assets/355f686e-fba2-48e7-9a33-7e645c680e0b" />
+  <img width="90%" alt="Podgląd Mordy Miśka 2" src="https://github.com/user-attachments/assets/355f686e-fba2-48e7-9a33-7e645c680e0b" />
 </p>
 
 ---
 
 ### 🤝 Współpraca
-Projekt jest tworzony przez społeczność dla społeczności. Jeśli znasz narzędzie, które pasuje do ideologii **Mordy Miśka**, otwórz *Pull Request* lub zgłoś *Issue* w repozytorium GitHub.
+Projekt jest tworzony przez społeczność dla społeczności. Jeśli znasz narzędzie, które pasuje do ideologii **Mordy Miśka**, możesz zgłosić je bezpośrednio poprzez system zgłoszeń w repozytorium.
 
 <p align="center">
   <strong>Stay Free. Stay Anonymous.</strong>
