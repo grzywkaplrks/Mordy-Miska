@@ -2,7 +2,7 @@
 <p align="center"><strong>Katalog Cyfrowej Niezależności | Open-Source | Privacy-First</strong></p>
 
 <p align="center">
-  <a href="https://mordymiska.pages.dev/"><img src="https://img.shields.io/badge/Strona_WWW-LIVE-orange?style=for-the-badge&logo=google-chrome&logoColor=white" /></a>
+  <a href="https://mordymiska.grzywaczbartek3.workers.dev/"><img src="https://img.shields.io/badge/Strona_WWW-LIVE-orange?style=for-the-badge&logo=google-chrome&logoColor=white" /></a>
 </p>
 
 ---
